@@ -60,7 +60,6 @@ class Video extends Component {
     const { src, muted, controls = false, primary = true } = this.props
     const classes = classNames({
       "video": true,
-      primary,
     })
     return (
       <div className={classes}>
@@ -73,11 +72,13 @@ class Video extends Component {
           onPause={this.onPause}
           onTimeUpdate={this.onTimeUpdate}
         />
-        <button onClick={this.setOffset}>setOffset</button>
-        <button onClick={this.seek.bind(this, "left", true)}>{'<<'}</button>
-        <button onClick={this.seek.bind(this, "left", false)}>{'<'}</button>
-        <button onClick={this.seek.bind(this, "right", false)}>{'>'}</button>
-        <button onClick={this.seek.bind(this, "right", true)}>{'>>'}</button>
+        <div className="video-tools">
+          <button onClick={this.setOffset}>setOffset</button>
+          <button onClick={this.seek.bind(this, "left", true)}>{'<<'}</button>
+          <button onClick={this.seek.bind(this, "left", false)}>{'<'}</button>
+          <button onClick={this.seek.bind(this, "right", false)}>{'>'}</button>
+          <button onClick={this.seek.bind(this, "right", true)}>{'>>'}</button>
+        </div>
       </div>
     )
   }

@@ -1,11 +1,44 @@
-.video-container {
+html, body, #root, .ui {
+  height:100%;
+}
+
+.ui {
   display: flex;
-
+  flex-direction: column;
 }
-.video-container .video {
+
+.ui .tools {}
+
+.ui .main-video {
+  color:#cecece;
+  font-size:100px;
+  background-color:#efefef;
+  flex:1;
+  min-height:200px;
+}
+
+  .ui .main-video .video {
+    height:100%;
+    text-align:center;
+  }
+
+.ui .video-container {
+  display: flex;
+  height:200px;
+}
+
+.ui .video-container .video {
   flex: 1;
+  height:100%;
+  position:Relative;
 }
 
-.video-container .video video {
-  width:100%;
+.ui .video-container .video video {
+  height:100%;
+}
+
+.video .video-tools {
+  position:absolute;
+  bottom:32px;
+  left:0;
 }
