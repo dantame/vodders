@@ -31,18 +31,12 @@ class App extends Component {
         const visibility = 'visible'
         const muted = visibility === 'visible'
         return (
-          <Video
-          src={video}
-          key={index}
-          controls
-          style={{
-            visibility,
-            position: "relative",
-            left: 0,
-            width: "50%",
-          }}
-          muted={muted}
-          />
+            <Video
+            key={index} 
+            src={video}
+            controls
+            muted={muted}
+            />
         )
       })
     }

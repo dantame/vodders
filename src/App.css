@@ -1,5 +1,11 @@
 .video-container {
   display: flex;
+
+}
+.video-container .video {
   flex: 1;
-  flex-wrap: wrap;
+}
+
+.video-container .video video {
+  width:100%;
 }
