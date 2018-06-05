@@ -1,4 +1,11 @@
-export const test = action => ({
-  type: 'TEST',
-  action,
+export const playVideos = () => ({
+  type: 'PLAY',
+})
+
+export const pauseVideos = () => ({
+  type: 'PAUSE',
+})
+
+export const stopVideos = () => ({
+  type: 'STOP',
 })

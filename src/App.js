@@ -1,34 +1,69 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import logo from './logo.svg'
 import './App.css'
-import { test } from './actions'
+import { playVideos, pauseVideos, stopVideos } from './actions'
+import Video from './components/Video'
+import { getAudioPeaks } from './helpers/audio'
 
 class App extends Component {
-  componentDidMount() {
-    this.props.test()
-  }
 
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          {this.props.someState}
-        </p>
-      </div>
-    )
-  }
+  constructor(props) {
+      super(props)
+      this.state = {
+        videos: [],
+      }
+      this.videoRefs = []
+    }
+
+    handleFiles = (e) => {
+      const URL = window.URL || window.webkitURL
+      const videos = [...e.target.files].map(file => {
+        const objectURL = URL.createObjectURL(file)
+        // getAudioPeaks(file)
+        return objectURL
+      })
+      this.setState({ videos })
+    }
+
+    renderVideos = () => {
+      return this.state.videos.map((video, index) => {
+        // const visibility = index > 0 ? 'hidden' : 'visible'
+        const visibility = 'visible'
+        const muted = visibility === 'visible'
+        return (
+          <Video
+          src={video}
+          key={index}
+          controls
+          style={{
+            visibility,
+            position: "relative",
+            left: 0,
+            width: "50%",
+          }}
+          muted={muted}
+          />
+        )
+      })
+    }
+
+    render() {
+      return (<div>
+        <input onChange={this.handleFiles} multiple type="file" />
+        <button onClick={this.props.play}>Play</button>
+        <button onClick={this.props.pause}>Pause</button>
+        <button onClick={this.props.stop}>Stop</button>
+        <div className="video-container">
+          {this.renderVideos()}
+        </div>
+      </div>)
+    }
 }
 
 const mapDispatchToProps = dispatch => ({
-  test: () => dispatch(test()),
+  play: () => dispatch(playVideos()),
+  pause: () => dispatch(pauseVideos()),
+  stop: () => dispatch(stopVideos()),
 })
 
 const mapStateToProps = (state, _ownProps) => ({
