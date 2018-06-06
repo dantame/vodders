@@ -31,28 +31,46 @@ class App extends Component {
         const visibility = 'visible'
         const muted = visibility === 'visible'
         return (
-          <Video
-          src={video}
-          key={index}
-          controls
-          style={{
-            visibility,
-            position: "relative",
-            left: 0,
-            width: "50%",
-          }}
-          muted={muted}
-          />
+            <Video
+            key={index} 
+            src={video}
+            controls
+            muted={muted}
+            />
         )
       })
     }
 
+    renderMainVideo = () => {
+      return this.state.videos.map((video, index) => {
+        if(index !== 0)
+          return ""
+        // const visibility = index > 0 ? 'hidden' : 'visible'
+        const visibility = 'visible'
+        const muted = visibility === 'visible'
+        return (
+            <Video
+            key={index} 
+            src={video}
+            controls
+            muted={muted}
+            />
+        )
+      })
+    }
+
+
     render() {
-      return (<div>
-        <input onChange={this.handleFiles} multiple type="file" />
-        <button onClick={this.props.play}>Play</button>
-        <button onClick={this.props.pause}>Pause</button>
-        <button onClick={this.props.stop}>Stop</button>
+      return (<div className="ui">
+        <div className="tools">
+          <input onChange={this.handleFiles} multiple type="file" />
+          <button onClick={this.props.play}>Play</button>
+          <button onClick={this.props.pause}>Pause</button>
+          <button onClick={this.props.stop}>Stop</button>
+        </div>
+        <div className="main-video">
+        {this.renderMainVideo()}
+        </div>
         <div className="video-container">
           {this.renderVideos()}
         </div>
