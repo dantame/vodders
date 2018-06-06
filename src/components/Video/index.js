@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 
@@ -56,13 +57,27 @@ class Video extends Component {
     }
   }
 
+  renderTools() {
+    return(
+      <div className="video-tools">
+        <button onClick={this.setOffset}>setOffset</button>
+        <button onClick={this.seek.bind(this, "left", true)}>{'<<'}</button>
+        <button onClick={this.seek.bind(this, "left", false)}>{'<'}</button>
+        <button onClick={this.seek.bind(this, "right", false)}>{'>'}</button>
+        <button onClick={this.seek.bind(this, "right", true)}>{'>>'}</button>
+      </div>
+    )
+  }
+
   render() {
-    const { src, muted, controls = false, primary = true } = this.props
+    const { src, muted, controls = false, primary = false } = this.props
     const classes = classNames({
       "video": true,
+      "main-video": primary,
     })
+
     return (
-      <div className={classes}>
+      <div className={classes} onClick={this.props.setPrimary}>
         <video
           ref={el => this.videoRef = el}
           src={src}
@@ -72,13 +87,6 @@ class Video extends Component {
           onPause={this.onPause}
           onTimeUpdate={this.onTimeUpdate}
         />
-        <div className="video-tools">
-          <button onClick={this.setOffset}>setOffset</button>
-          <button onClick={this.seek.bind(this, "left", true)}>{'<<'}</button>
-          <button onClick={this.seek.bind(this, "left", false)}>{'<'}</button>
-          <button onClick={this.seek.bind(this, "right", false)}>{'>'}</button>
-          <button onClick={this.seek.bind(this, "right", true)}>{'>>'}</button>
-        </div>
       </div>
     )
   }

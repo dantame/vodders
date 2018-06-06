@@ -1,7 +1,13 @@
 .video {
+  display: block;
+  flex: 1 1 1%;
 }
 
 .video video {
-  height: 100%;
-  margin:auto;
+  width: 100%;
+}
+
+.main-video {
+  flex: 1 0 100%;
+  order: -1;
 }

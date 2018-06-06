@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import classNames from 'classnames'
 import { connect } from 'react-redux'
 import './App.css'
 import { playVideos, pauseVideos, stopVideos } from './actions'
@@ -11,6 +12,7 @@ class App extends Component {
       super(props)
       this.state = {
         videos: [],
+        primaryIndex: 0,
       }
       this.videoRefs = []
     }
@@ -27,40 +29,29 @@ class App extends Component {
 
     renderVideos = () => {
       return this.state.videos.map((video, index) => {
-        // const visibility = index > 0 ? 'hidden' : 'visible'
-        const visibility = 'visible'
-        const muted = visibility === 'visible'
+        const isPrimary = index === this.state.primaryIndex
         return (
             <Video
-            key={index} 
-            src={video}
-            controls
-            muted={muted}
+              key={index}
+              src={video}
+              primary={isPrimary}
+              controls={false}
+              muted={!isPrimary}
+              setPrimary={this.setPrimary.bind(this, index)}
             />
         )
       })
     }
 
-    renderMainVideo = () => {
-      return this.state.videos.map((video, index) => {
-        if(index !== 0)
-          return ""
-        // const visibility = index > 0 ? 'hidden' : 'visible'
-        const visibility = 'visible'
-        const muted = visibility === 'visible'
-        return (
-            <Video
-            key={index} 
-            src={video}
-            controls
-            muted={muted}
-            />
-        )
+    setPrimary = (primaryIndex) => {
+      this.setState({
+        primaryIndex,
       })
     }
-
 
     render() {
+      const videos = this.renderVideos()
+
       return (<div className="ui">
         <div className="tools">
           <input onChange={this.handleFiles} multiple type="file" />
@@ -68,11 +59,8 @@ class App extends Component {
           <button onClick={this.props.pause}>Pause</button>
           <button onClick={this.props.stop}>Stop</button>
         </div>
-        <div className="main-video">
-        {this.renderMainVideo()}
-        </div>
         <div className="video-container">
-          {this.renderVideos()}
+          {videos}
         </div>
       </div>)
     }
