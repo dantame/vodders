@@ -6,7 +6,6 @@ export const getAudioPeaks = (videoFile) => {
   const audio = new Audio(videoObjectUrl)
   audio.play().then(() => {
     audio.pause()
-    const offlineContext = new OfflineAudioContext(2,44100*audio.duration,44100)
     const source = context.createBufferSource()
     const scriptNode = context.createScriptProcessor(0, 1, 1)
 

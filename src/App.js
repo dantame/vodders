@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import classNames from 'classnames'
 import { connect } from 'react-redux'
 import './App.css'
 import { playVideos, pauseVideos, stopVideos } from './actions'
 import Video from './components/Video'
-import { getAudioPeaks } from './helpers/audio'
 
 class App extends Component {
 

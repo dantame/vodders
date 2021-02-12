@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 
@@ -87,6 +86,7 @@ class Video extends Component {
           onPause={this.onPause}
           onTimeUpdate={this.onTimeUpdate}
         />
+        {this.renderTools()}
       </div>
     )
   }
